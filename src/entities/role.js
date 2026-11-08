@@ -5,6 +5,7 @@ const RolePermission = Object.freeze({
   MANAGE_BOOKINGS: "manageBookings",
   MANAGE_MEDIA: "manageMedia",
   FREE_BOOKINGS: "freeBookings",
+  MANAGE_ADMISSIONS: "manageAdmissions",
 });
 
 // The admin interfaces a role can grant access to, as shown in the role
@@ -33,7 +34,8 @@ class Role {
     manageRoles,
     manageCoupons,
     freeBookings,
-    manageMedia
+    manageMedia,
+    manageAdmissions
   ) {
     this.id = id;
     this.name = name;
@@ -84,6 +86,17 @@ class Role {
       deleteAny: false,
     };
     this.manageMedia = manageMedia || {
+      create: false,
+      readAny: false,
+      readOwn: false,
+      updateAny: false,
+      updateOwn: false,
+      deleteOwn: false,
+      deleteAny: false,
+    };
+    // The entrance (glossary „Zugangsberechtigung“): `create` checks in and
+    // out, `readAny` reads the admissions and devices, `updateAny` corrects.
+    this.manageAdmissions = manageAdmissions || {
       create: false,
       readAny: false,
       readOwn: false,

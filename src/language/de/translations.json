@@ -962,7 +962,153 @@
       "blockPeriods": "Mindestens ein Zeitraum ist erforderlich.",
       "blockPeriodDuration": "Die Buchungsdauer muss größer als null sein.",
       "leadTimeMinutes": "Gültige Dauer erforderlich",
-      "bufferMinutes": "Gültige Dauer erforderlich (0 oder mehr Minuten)"
+      "bufferMinutes": "Gültige Dauer erforderlich (0 oder mehr Minuten)",
+      "admissionDate": "Bitte ein Datum angeben.",
+      "admissionWindowOrder": "Das Ende darf nicht vor dem Beginn liegen.",
+      "admissionDays": "Bitte eine ganze Zahl ab 1 angeben.",
+      "admissionQuota": "Bitte eine ganze Zahl ab 1 angeben.",
+      "admissionBlockMinutes": "Bitte eine ganze Zahl von 0 bis 1440 Minuten angeben.",
+      "admissionPerUnit": "Bitte eine ganze Zahl von 1 bis 50 angeben.",
+      "admissionResetTime": "Bitte eine Uhrzeit im Format HH:MM angeben.",
+      "admissionMaxStay": "Leer lassen oder eine ganze Zahl ab 1 angeben."
+    },
+    "admission": {
+      "tab": "Einlass",
+      "units": {
+        "days": "Tag | Tage",
+        "usageDays": "Nutzungstag | Nutzungstage",
+        "persons": "Person | Personen",
+        "minutes": "Minuten"
+      },
+      "definition": {
+        "title": "Berechtigungsdefinition",
+        "enabled": "Zugangsberechtigungen ausstellen",
+        "enabled-hint": "Jede verbindliche Buchung dieses Tarifs erzeugt Zugangsberechtigungen mit eigener Kennung, die am Einlass geprüft werden. Die Angaben werden bei der Ausstellung kopiert: Eine spätere Änderung des Tarifs ändert keine bereits verkaufte Berechtigung."
+      },
+      "validity": {
+        "title": "Gültigkeit",
+        "booking": "Gebuchter Zeitraum",
+        "window": "Fester Zeitraum",
+        "duration": "Laufzeit ab Kauf",
+        "from": "Gültig ab",
+        "to": "Gültig bis",
+        "days": "Laufzeit",
+        "booking-hint": "Gültig im gebuchten Zeitraum, z. B. eine Tageskarte für den gebuchten Tag.",
+        "window-hint": "Gültig an allen Tagen des Zeitraums, z. B. eine Saison; ganze Kalendertage der Einrichtung.",
+        "duration-hint": "Gültig ab der Ausstellung für die angegebene Zahl an Tagen, z. B. 365 Tage ab Kauf."
+      },
+      "usage": {
+        "title": "Nutzungsart",
+        "single": "Einmalig",
+        "unlimited": "Unbegrenzt",
+        "quota": "Kontingent",
+        "single-hint": "Ein Nutzungstag. Ein Wiedereintritt am selben Tag verbraucht nichts.",
+        "unlimited-hint": "An jedem Tag der Gültigkeit, ohne Zählung.",
+        "quota-hint": "Eine feste Zahl an Nutzungstagen, z. B. eine 10er-Karte. Gezählt wird der erste Eintritt eines Tages."
+      },
+      "blockMinutes": {
+        "title": "Sperrzeit",
+        "label": "Sperrzeit nach einem Eintritt",
+        "hint": "Mindestabstand zwischen zwei Eintritten, auch nach einem Austritt; verhindert das Weiterreichen am Einlass. 0 = keine Sperrzeit, höchstens 1440 Minuten."
+      },
+      "persons": {
+        "title": "Personen und Personenbindung",
+        "perUnit": "Zugangsberechtigungen je gebuchter Einheit",
+        "single-hint": "Je gebuchter Einheit eine Zugangsberechtigung für eine Person.",
+        "bundle-hint": "Mehr als eine Person: ein Sammelticket und je Person eine eigene Zugangsberechtigung, z. B. eine Familienkarte. Am Einlass werden die Einzelcodes gescannt.",
+        "personalized": "Personengebunden",
+        "personalized-hint": "Das Einlasspersonal erhält bei jedem Eintritt den Hinweis, das Lichtbild zu prüfen."
+      },
+      "capacity": {
+        "title": "Kapazitätsprüfung",
+        "booking": "Bei der Buchung",
+        "entry": "Am Einlass",
+        "none": "Keine",
+        "booking-hint": "Beim Kauf wird gegen die Kapazität der Einrichtung geprüft; Saison- und andere Einlass-Tarife zählen dabei nicht mit.",
+        "entry-hint": "Beim Kauf keine Kapazitätsprüfung der Einrichtung – geprüft wird am Einlass: Ist die Einrichtung voll, wird der Eintritt verweigert.",
+        "none-hint": "Für diesen Tarif wird keine Kapazität der Einrichtung geprüft, weder beim Kauf noch am Einlass."
+      },
+      "facility": {
+        "title": "Einlass der Einrichtung",
+        "enabled": "Einlasskontrolle für diese Einrichtung",
+        "enabled-hint": "Tarife (Tickets), die diese Einrichtung in ihrer Hierarchie als Kinderobjekte führt, werden an ihrem Einlass geprüft. Einlassgeräte werden in der Verwaltung unter „Einlass“ angelegt.",
+        "tariffs": "Tarife am Einlass: {tariffs}",
+        "tariffs-none": "Noch kein Tarif: Tarife in der Hierarchie dieser Einrichtung als Kinderobjekte eintragen.",
+        "toHierarchy": "Zur Hierarchie",
+        "resetTime": "Tagesreset um",
+        "resetTime-hint": "Zu dieser Uhrzeit werden alle offenen Anwesenheiten ausgecheckt und abgelaufene Berechtigungen beendet.",
+        "maxStay": "Höchste Aufenthaltsdauer",
+        "maxStay-hint": "Leer = ohne Begrenzung. Danach gilt eine Berechtigung ohne Austrittsscan als ausgetreten.",
+        "exitScan": "Austritte werden gescannt",
+        "exitScan-on-hint": "Ein erneuter Eintritt setzt einen erfassten Austritt voraus.",
+        "exitScan-off-hint": "Ohne Austrittsscan endet eine Anwesenheit erst mit dem Tagesreset oder der höchsten Aufenthaltsdauer.",
+        "capacity": "Kapazität: {capacity} (aus der Anzahl der Einrichtung)",
+        "capacity-unlimited": "Kapazität: unbegrenzt (keine Anzahl festgelegt)",
+        "capacity-change": "Anzahl ändern"
+      },
+      "preview": {
+        "title": "Regelvorschau",
+        "off": "Dieser Tarif stellt keine Zugangsberechtigungen aus.",
+        "issuesHeading": "Dieser Tarif erzeugt …",
+        "checksHeading": "Am Einlass „{facility}“ wird in dieser Reihenfolge geprüft:",
+        "checksHeadingNoFacility": "Am Einlass wird in dieser Reihenfolge geprüft:",
+        "saleHeading": "Beim Kauf",
+        "toFacilityHierarchy": "Hierarchie von „{facility}“ öffnen",
+        "issues": {
+          "single": "je gebuchter Einheit eine Zugangsberechtigung für eine Person,",
+          "bundle": "je gebuchter Einheit ein Sammelticket und {count} Zugangsberechtigungen, eine je Person,",
+          "validity": {
+            "booking": "gültig im gebuchten Zeitraum,",
+            "window": "gültig vom {from} bis {to},",
+            "duration": "gültig {days} Tage ab der Ausstellung,"
+          },
+          "usage": {
+            "single": "für einen Nutzungstag (ein Wiedereintritt am selben Tag verbraucht nichts),",
+            "unlimited": "für jeden Tag der Gültigkeit,",
+            "quota": "für {quota} Nutzungstage,"
+          },
+          "personalized": "personengebunden,",
+          "binding": "ausgestellt, sobald die Buchung verbindlich ist (bestätigt oder bezahlt); eine Stornierung macht sie ungültig."
+        },
+        "sale": {
+          "capacity": {
+            "booking": "Beim Kauf wird gegen die Kapazität der Einrichtung geprüft; Saison- und andere Einlass-Tarife zählen dabei nicht mit.",
+            "entry": "Beim Kauf keine Kapazitätsprüfung – geprüft wird am Einlass.",
+            "none": "Keine Kapazitätsprüfung."
+          },
+          "contingent": {
+            "day": "Eigenes Kontingent des Tarifs: höchstens {count} je Tag online.",
+            "period": "Eigenes Kontingent des Tarifs: höchstens {count} je gebuchtem Zeitraum online.",
+            "total": "Eigenes Kontingent des Tarifs: höchstens {count} insgesamt online."
+          }
+        },
+        "checks": {
+          "code": {
+            "single": "Ist die Kennung echt, unverändert und für „{facility}“ ausgestellt?",
+            "bundle": "Ist die Kennung echt, unverändert und für „{facility}“ ausgestellt? Das Sammelticket selbst lässt niemanden ein."
+          },
+          "valid": "Ist die Berechtigung gültig: nicht gesperrt, nicht storniert, im Gültigkeitszeitraum?",
+          "usage": {
+            "single": "Wurde sie an keinem anderen Tag schon genutzt?",
+            "quota": "Ist das Kontingent noch nicht aufgebraucht?",
+            "unlimited": "Nutzungstage werden nicht begrenzt."
+          },
+          "presence": {
+            "exitScan": "Wurde seit dem letzten Eintritt ein Austritt erfasst?",
+            "noExitScan": "Ohne Austrittsscan: Ein erneuter Eintritt am selben Tag ist ein Wiedereintritt.",
+            "maxStay": "Nach {minutes} Minuten ohne Austritt gilt sie als ausgetreten."
+          },
+          "blockTime": "Sind seit dem letzten Eintritt {minutes} Minuten Sperrzeit vergangen?",
+          "capacity": {
+            "entry": "Ist in der Einrichtung noch Platz (Kapazität {capacity})?"
+          },
+          "photo": "Hinweis an das Personal: Lichtbild prüfen.",
+          "reset": "Um {time} Uhr werden alle offenen Anwesenheiten ausgecheckt (Tagesreset)."
+        },
+        "warnings": {
+          "noFacility": "Keine Einrichtung zugeordnet: Der Tarif wird erst an einem Einlass geprüft, wenn eine Einrichtung mit Einlasskontrolle ihn in ihrer Hierarchie als Kinderobjekt führt."
+        }
+      }
     }
   },
   "event": {
@@ -3958,6 +4104,218 @@
   "rule": {
     "list": {
       "search": "Name, Beschreibung oder Ressource"
+    }
+  },
+  "admission": {
+    "states": {
+      "issued": "Ausgestellt",
+      "present": "Eingecheckt",
+      "absent": "Ausgecheckt",
+      "consumed": "Verbraucht",
+      "expired": "Abgelaufen",
+      "blocked": "Gesperrt",
+      "invalid": "Ungültig"
+    },
+    "kinds": {
+      "single": "Einzelberechtigung",
+      "bundle": "Sammelticket (lässt niemanden ein)",
+      "member": "Person {member} eines Sammeltickets"
+    },
+    "remaining": {
+      "unlimited": "Unbegrenzt",
+      "quota": "{left} von {quota} Nutzungstagen übrig",
+      "singleOpen": "Nutzungstag offen",
+      "singleUsed": "Nutzungstag verbraucht"
+    },
+    "page": {
+      "tabs": {
+        "admissions": "Zugangsberechtigungen",
+        "devices": "Einlassgeräte"
+      },
+      "forbidden": "Für die Zugangsberechtigungen dieses Mandanten fehlt die Berechtigung „Einlass: Alle lesen“.",
+      "noTenant": "Bitte zuerst einen Mandanten wählen."
+    },
+    "counter": {
+      "value": "{count} eingecheckte Berechtigungen",
+      "valueOf": "{count} von {capacity} eingecheckten Berechtigungen",
+      "unavailable": "Zähler nicht verfügbar",
+      "reload": "Zähler neu laden",
+      "note": "Gezählt werden eingecheckte Zugangsberechtigungen, keine anwesenden Personen: ohne Personal und Personen ohne Berechtigung, dafür mit allen, die ohne Austrittsscan gegangen sind, bis zum Tagesreset. Kein Belegungsnachweis und keine Grundlage für Sicherheits- oder Räumungskonzepte."
+    },
+    "list": {
+      "searchFields": "Kennung oder Buchungsnummer",
+      "columns": {
+        "tariff": "Tarif",
+        "facility": "Einrichtung",
+        "booking": "Buchung",
+        "state": "Zustand",
+        "usage": "Nutzung",
+        "lastEntry": "Letzter Eintritt"
+      },
+      "filters": {
+        "facilityId": "Einrichtung",
+        "bookableId": "Tarif",
+        "state": "Zustand"
+      },
+      "open": "Details",
+      "openFor": "Details zu {title}",
+      "lead": "Eine Zugangsberechtigung, die neueste zuerst. | {count} Zugangsberechtigungen, die neuesten zuerst.",
+      "leadLimited": "Die neuesten {count} Zugangsberechtigungen. Mit Filter oder Suche eingrenzen.",
+      "empty": "Noch keine Zugangsberechtigungen ausgestellt.",
+      "emptyFiltered": "Keine Zugangsberechtigung passt zu Suche und Filter.",
+      "error": "Die Zugangsberechtigungen konnten nicht geladen werden."
+    },
+    "detail": {
+      "title": "Zugangsberechtigung",
+      "back": "Zurück zur Liste",
+      "booking": "Buchung",
+      "entitlement": "Berechtigungsangaben",
+      "code": "Kennung (für einen Neudruck)",
+      "corrections": "Korrekturen",
+      "correctionsHint": "Jede Korrektur braucht eine Begründung und steht danach im Nutzungsprotokoll.",
+      "correctionsReadOnly": "Korrekturen erfordern die Berechtigung „Einlass: Alle bearbeiten“.",
+      "log": "Nutzungsprotokoll",
+      "notFound": "Diese Zugangsberechtigung gibt es nicht.",
+      "error": "Die Zugangsberechtigung konnte nicht geladen werden.",
+      "facts": {
+        "validity": "Gültigkeit",
+        "validityValue": "{from} bis {to}",
+        "usage": "Nutzungsart",
+        "remaining": "Nutzungstage",
+        "blockMinutes": "Sperrzeit",
+        "minutes": "{minutes} Minuten",
+        "none": "keine",
+        "personalized": "Personengebunden",
+        "yes": "ja",
+        "no": "nein",
+        "capacityCheck": "Kapazitätsprüfung",
+        "entries": "Eintritte",
+        "lastEntry": "Letzter Eintritt",
+        "lastExit": "Letzter Austritt"
+      }
+    },
+    "usage": {
+      "columns": {
+        "at": "Zeit",
+        "event": "Ereignis",
+        "state": "Zustand",
+        "actor": "Durch",
+        "reason": "Grund"
+      },
+      "events": {
+        "issue": "Ausgestellt",
+        "entry": "Eintritt",
+        "exit": "Austritt",
+        "autoExit": "Automatischer Austritt",
+        "reset": "Tagesreset",
+        "expire": "Abgelaufen",
+        "block": "Gesperrt",
+        "unblock": "Entsperrt",
+        "invalidate": "Ungültig gesetzt",
+        "restore": "Wiederhergestellt",
+        "correction": "Korrektur"
+      },
+      "actors": {
+        "device": "Gerät {label}",
+        "user": "Verwaltung",
+        "reset": "Tagesreset",
+        "system": "System"
+      },
+      "reasons": {
+        "booking_cancelled": "Buchung storniert",
+        "booking_withdrawn": "Widerruf angenommen",
+        "booking_deleted": "Buchung gelöscht",
+        "booking_reinstated": "Buchung wiederhergestellt"
+      },
+      "dayConsumed": "Tag verbraucht",
+      "reverted": "zurückgenommen"
+    },
+    "correction": {
+      "reason": "Begründung",
+      "reasonHint": "Pflichtangabe, erscheint im Nutzungsprotokoll.",
+      "reasonRequired": "Bitte eine Begründung angeben.",
+      "cancel": "Abbrechen",
+      "submit": "Korrektur speichern",
+      "actions": {
+        "block": {
+          "title": "Sperren",
+          "effect": "Die Berechtigung wird am Einlass abgewiesen, bis sie entsperrt wird. Ihr bisheriger Zustand bleibt erhalten.",
+          "done": "Die Berechtigung ist gesperrt."
+        },
+        "unblock": {
+          "title": "Entsperren",
+          "effect": "Die Berechtigung erhält den Zustand zurück, den sie vor der Sperre hatte.",
+          "done": "Die Berechtigung ist entsperrt."
+        },
+        "resetPresence": {
+          "title": "Anwesenheit zurücksetzen",
+          "effect": "Für einen vergessenen Austritt: Die Berechtigung gilt als ausgetreten und kann wieder eintreten.",
+          "done": "Die Anwesenheit ist zurückgesetzt."
+        },
+        "revertEntry": {
+          "title": "Entwertung zurücknehmen",
+          "effect": "Nimmt den letzten Eintritt zurück, z. B. nach einem Fehlscan: Ein dabei verbrauchter Nutzungstag wird gutgeschrieben, die Sperrzeit läuft ab dem vorherigen Eintritt.",
+          "done": "Der letzte Eintritt ist zurückgenommen."
+        }
+      },
+      "errors": {
+        "admission_changed": "Die Berechtigung wurde inzwischen am Einlass gescannt. Bitte die neuen Angaben prüfen und die Korrektur erneut ausführen.",
+        "admission_correction_not_applicable": "Diese Korrektur passt nicht zum aktuellen Zustand der Berechtigung. Die Angaben wurden neu geladen.",
+        "reason_required": "Bitte eine Begründung angeben.",
+        "default": "Die Korrektur konnte nicht gespeichert werden."
+      }
+    },
+    "devices": {
+      "lead": "Einlassgeräte sind Scanner oder Browser am Einlass einer Einrichtung. Jedes Gerät meldet sich mit einem eigenen Token an und prüft nur an seiner Einrichtung.",
+      "create": "Gerät anlegen",
+      "createTitle": "Einlassgerät anlegen",
+      "createSubmit": "Anlegen und Token anzeigen",
+      "noFacility": "Es gibt noch keine Einrichtung mit Einlasskontrolle. Schalten Sie sie im Buchungsobjekt der Einrichtung unter „Einlass“ ein.",
+      "empty": "Noch keine Einlassgeräte angelegt.",
+      "error": "Die Einlassgeräte konnten nicht geladen werden.",
+      "saveError": "Die Änderung konnte nicht gespeichert werden.",
+      "required": "Pflichtfeld",
+      "never": "noch nie",
+      "renewedAt": "erneuert {at}",
+      "columns": {
+        "label": "Gerät",
+        "status": "Status",
+        "token": "Token",
+        "lastSeen": "Zuletzt aktiv"
+      },
+      "status": {
+        "active": "Aktiv",
+        "blocked": "Gesperrt"
+      },
+      "fields": {
+        "label": "Bezeichnung",
+        "labelHint": "Z. B. „Eingang Nord“ oder „Kasse 2“",
+        "facility": "Einrichtung",
+        "blockReason": "Grund der Sperre"
+      },
+      "renew": "Token erneuern",
+      "renewTitle": "Token von „{label}“ erneuern?",
+      "renewQuestion": "Das bisherige Token funktioniert danach nicht mehr. Das Gerät muss mit dem neuen Token neu gekoppelt werden.",
+      "block": "Sperren",
+      "blockTitle": "„{label}“ sperren?",
+      "blockQuestion": "Ein gesperrtes Gerät kann keine Prüfungen mehr senden, z. B. wenn es verloren wurde.",
+      "unblock": "Entsperren",
+      "token": {
+        "title": "Token des Einlassgeräts",
+        "lead": "Token für „{label}“:",
+        "once": "Das Token wird nur jetzt angezeigt. Gespeichert wird nur ein Prüfwert; wer es verliert, muss es erneuern.",
+        "label": "Gerätetoken",
+        "show": "Token anzeigen",
+        "hide": "Token verbergen",
+        "copy": "Kopieren",
+        "copied": "In die Zwischenablage kopiert.",
+        "pairHeading": "So wird das Gerät gekoppelt",
+        "tenant": "Mandanten-ID für die Kopplung:",
+        "pair1": "Auf dem Gerät die Einlassseite der Buchungsseite öffnen: …/admission?tenant=<Mandanten-ID>.",
+        "pair2": "Das Token einfügen oder als QR-Code scannen und „Koppeln“ wählen.",
+        "pair3": "Das Token bleibt im Browser des Geräts als geschütztes Cookie gespeichert; die Seite zeigt es nicht wieder an.",
+        "done": "Token übernommen, schließen"
+      }
     }
   }
 }

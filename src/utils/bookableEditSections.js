@@ -7,6 +7,7 @@ import {
   ifbsLockerOf,
   providerTakesOver,
 } from "@/utils/bookableExternalProviders";
+import { issuesAdmissions } from "@/utils/admissionDefinition";
 import {
   bookingModeOf,
   isLeadTimeMode,
@@ -158,6 +159,29 @@ const ALL_SECTIONS = [
     subTab: 1,
     expertOption: "customFieldDefinitions",
   },
+  // The entrance: a ticket's definition and its preview, a facility's
+  // settings, each shown by the bookable's type.
+  {
+    tabKey: "admission",
+    id: "admission-definition",
+    labelKey: "bookable.admission.definition.title",
+    type: "scroll",
+    expertOption: "admission",
+  },
+  {
+    tabKey: "admission",
+    id: "admission-preview",
+    labelKey: "bookable.admission.preview.title",
+    type: "scroll",
+    expertOption: "admission",
+  },
+  {
+    tabKey: "admission",
+    id: "admission-facility",
+    labelKey: "bookable.admission.facility.title",
+    type: "scroll",
+    expertOption: "admission",
+  },
   {
     tabKey: "relatedBookables",
     id: "related-checkout",
@@ -213,6 +237,9 @@ function isSectionVisible(
     "bookingType-buffer": () => mode === "schedule",
     "openingHours-regular": () => isTimeWindowMode(bookingMode),
     "openingHours-special": () => isTimeWindowMode(bookingMode),
+    "admission-definition": () => bookable.type === "ticket",
+    "admission-preview": () => issuesAdmissions(bookable),
+    "admission-facility": () => bookable.type !== "ticket",
   };
 
   const check = visibilityById[section.id];

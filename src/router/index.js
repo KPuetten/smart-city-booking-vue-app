@@ -220,6 +220,27 @@ const routes = [
     },
   },
   {
+    // Einlass: the admissions and their devices. No
+    // admin interface of the role: the page asks `manageAdmissions`
+    // (AdmissionPermissionService) and the API decides.
+    path: "/admissions",
+    name: "admissions",
+    component: lazyLoad("Management/Admissions"),
+    meta: {
+      title: "Einlass",
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/admissions/:id",
+    name: "admission-detail",
+    component: lazyLoad("Management/AdmissionDetail"),
+    meta: {
+      title: "Zugangsberechtigung",
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/coupons",
     name: "coupons",
     component: Coupons,

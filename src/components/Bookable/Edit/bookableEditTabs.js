@@ -15,6 +15,9 @@ import BookableEditAttachments from "@/components/Bookable/Edit/BookableEditAtta
 import BookableEditCustomFields from "@/components/Bookable/Edit/BookableEditCustomFields.vue";
 import BookableEditRequiredFields from "@/components/Bookable/Edit/BookableEditRequiredFields.vue";
 import BookableEditBookingNotes from "@/components/Bookable/Edit/BookableEditBookingNotes.vue";
+import BookableEditAdmission from "@/components/Bookable/Edit/BookableEditAdmission.vue";
+import BookableEditAdmissionPreview from "@/components/Bookable/Edit/BookableEditAdmissionPreview.vue";
+import BookableEditAdmissionFacility from "@/components/Bookable/Edit/BookableEditAdmissionFacility.vue";
 import { BOOKABLE_AREAS } from "@/utils/bookableAreas";
 
 /**
@@ -151,6 +154,37 @@ export const BOOKABLE_EDIT_TABS = Object.freeze([
     labelKey: "bookable.areas.accessLocks.title",
     icon: "mdi-lock-outline",
     cards: [areaCard("accessLocks")],
+  },
+  {
+    key: "admission",
+    labelKey: "bookable.admission.tab",
+    icon: "mdi-ticket-account",
+    // The entrance (glossary „Zugangsberechtigung“): a ticket's definition
+    // and its rule preview, a facility's settings - by the type, as their
+    // sections show.
+    cards: [
+      {
+        key: "admission",
+        comp: BookableEditAdmission,
+        titleKey: "bookable.admission.definition.title",
+        icon: "mdi-card-account-details-outline",
+        section: "admission-definition",
+      },
+      {
+        key: "admissionPreview",
+        comp: BookableEditAdmissionPreview,
+        titleKey: "bookable.admission.preview.title",
+        icon: "mdi-text-box-check-outline",
+        section: "admission-preview",
+      },
+      {
+        key: "admissionFacility",
+        comp: BookableEditAdmissionFacility,
+        titleKey: "bookable.admission.facility.title",
+        icon: "mdi-gate",
+        section: "admission-facility",
+      },
+    ],
   },
   {
     key: "relatedBookables",

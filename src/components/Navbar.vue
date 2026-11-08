@@ -180,6 +180,7 @@ import keycloakService from "@/services/KeycloakService";
 import { isBffAuthMode } from "@/services/auth/authMode";
 import { directRedirects } from "@/services/auth/directRedirects";
 import { version as appVersion } from "../../package.json";
+import { allowsAdmission } from "@/utils/admissionPermissions";
 
 export default {
   data: () => ({
@@ -213,6 +214,15 @@ export default {
             link: "bookings",
             icon: "mdi-book-outline",
             interfaceName: "bookings",
+            context: "tenant",
+          },
+          {
+            title: "Einlass",
+            link: "admissions",
+            icon: "mdi-ticket-account",
+            // No admin interface: shown by the right `manageAdmissions.readAny`
+            // (or as an owner), as the page and the API decide it.
+            admissionRight: "read",
             context: "tenant",
           },
           {
@@ -507,6 +517,13 @@ export default {
             pages: item.pages.filter((page) => {
               if (page.showAlways) {
                 return true;
+              }
+              if (page.admissionRight) {
+                return allowsAdmission(
+                  this.$store.state.user.data?.permissions,
+                  this.getCurrentTenant,
+                  page.admissionRight
+                );
               }
               return (
                 this.isAuthorized(page.interfaceName) &&

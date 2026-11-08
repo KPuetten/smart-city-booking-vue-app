@@ -2,6 +2,10 @@ import { priceModeOf } from "@/utils/bookableFlow";
 import { bookingModeOf } from "@/utils/bookableBookingMode";
 import { IFBS_PROVIDER } from "@/utils/bookableExternalProviders";
 import { hasBufferConfig } from "@/utils/bookingLeadTime";
+import {
+  isAdmissionFacility,
+  issuesAdmissions,
+} from "@/utils/admissionDefinition";
 
 const SESSION_STORAGE_KEY = "bookableEditExpertMode";
 
@@ -104,6 +108,10 @@ const USED = {
       )),
   customFieldDefinitions: (bookable) =>
     nonEmpty(bookable.customFieldDefinitions),
+  // The entrance: a ticket that issues admissions, or a facility whose
+  // entrance is checked - a switched-off definition is the stand of a new one.
+  admission: (bookable) =>
+    issuesAdmissions(bookable) || isAdmissionFacility(bookable),
 };
 
 /**
@@ -159,6 +167,7 @@ function usedOf(option) {
 const EXPERT_TABS = {
   accessLocks: ["accessLocks"],
   relatedBookables: ["checkoutBookables", "hierarchy"],
+  admission: ["admission"],
 };
 
 /**

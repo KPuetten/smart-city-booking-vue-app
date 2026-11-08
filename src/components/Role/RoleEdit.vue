@@ -247,6 +247,13 @@ export default {
           name: "Mediathek",
           value: "manageMedia",
         },
+        {
+          // Erstellen = Ein- und Austritte prüfen (Einlasspersonal),
+          // Alle lesen = Zugangsberechtigungen und Geräte, Alle bearbeiten =
+          // Korrekturen mit Begründung.
+          name: "Einlass",
+          value: "manageAdmissions",
+        },
       ],
       rules: {
         required: (value) => !!value || "Pflichtfeld",

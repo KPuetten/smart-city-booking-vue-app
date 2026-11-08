@@ -18,6 +18,12 @@
 import { isBookableEditSectionVisible } from "@/utils/bookableEditSections";
 import { providerTakesOver } from "@/utils/bookableExternalProviders";
 import { locationRefusal } from "@/utils/locationLogic";
+import {
+  MAX_ADMISSIONS_PER_UNIT,
+  MAX_BLOCK_MINUTES,
+  admissionDefinitionErrors,
+  facilitySettingsErrors,
+} from "@/utils/admissionDefinition";
 
 const message = (name) => `bookable.validation.${name}`;
 
@@ -124,6 +130,43 @@ const RULES = Object.freeze({
       isWholeNumber(value, 0, ACCESS_BUFFER_MAX_MINUTES) ||
       "accessPoint.bookable.buffer.invalid",
   ],
+
+  // The admission definition of a ticket and the settings of a facility:
+  // `definitionErrors` and `facilityErrors` (admission-definition.js). A
+  // fixed window names its days as `YYYY-MM-DD`, a duration and a quota a
+  // whole number from 1, the block time 0 to a day, a bundle 1 to 50.
+  admissionDate: [
+    (value) =>
+      /^\d{4}-\d{2}-\d{2}$/.test(value ?? "") || message("admissionDate"),
+  ],
+  admissionDays: [
+    (value) => isWholeNumber(value, 1) || message("admissionDays"),
+  ],
+  admissionQuota: [
+    (value) => isWholeNumber(value, 1) || message("admissionQuota"),
+  ],
+  admissionBlockMinutes: [
+    (value) =>
+      isWholeNumber(value, 0, MAX_BLOCK_MINUTES) ||
+      message("admissionBlockMinutes"),
+  ],
+  admissionPerUnit: [
+    (value) =>
+      isWholeNumber(value, 1, MAX_ADMISSIONS_PER_UNIT) ||
+      message("admissionPerUnit"),
+  ],
+  // `resetTime` as `HH:mm`; the stay limit empty (none) or from 1 minute.
+  admissionResetTime: [
+    (value) =>
+      /^([01]\d|2[0-3]):[0-5]\d$/.test(value ?? "") ||
+      message("admissionResetTime"),
+  ],
+  admissionMaxStay: [
+    (value) =>
+      !isFilled(value) ||
+      isWholeNumber(value, 1) ||
+      message("admissionMaxStay"),
+  ],
 });
 
 /** The names `bookableRules` knows. */
@@ -195,6 +238,25 @@ const PLACES = Object.freeze({
     step: "more",
     area: "accessLocks",
   },
+  // The entrance has no step of the guided flow: its issues open the tab.
+  admission: { tab: "admission", section: "admission-definition", step: null },
+  admissionFacility: {
+    tab: "admission",
+    section: "admission-facility",
+    step: null,
+  },
+});
+
+/** The message of each error of `admissionDefinitionErrors`/`facilitySettingsErrors`. */
+const ADMISSION_MESSAGES = Object.freeze({
+  date: "admissionDate",
+  windowOrder: "admissionWindowOrder",
+  days: "admissionDays",
+  quota: "admissionQuota",
+  blockMinutes: "admissionBlockMinutes",
+  admissionsPerUnit: "admissionPerUnit",
+  resetTime: "admissionResetTime",
+  maxStayMinutes: "admissionMaxStay",
 });
 
 const MINUTES_PER_DAY = 24 * 60;
@@ -390,6 +452,23 @@ export function bookableIssues(
       details.accessBuffer?.before,
       details.accessBuffer?.after,
     ]);
+  }
+
+  if (sectionShows("admission-definition")) {
+    add(
+      "admission",
+      admissionDefinitionErrors(bookable).map((error) =>
+        message(ADMISSION_MESSAGES[error.name])
+      )
+    );
+  }
+  if (sectionShows("admission-facility")) {
+    add(
+      "admissionFacility",
+      facilitySettingsErrors(bookable).map((error) =>
+        message(ADMISSION_MESSAGES[error.name])
+      )
+    );
   }
 
   if (sectionShows("permissions-discounts")) {
